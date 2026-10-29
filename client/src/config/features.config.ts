@@ -21,7 +21,7 @@ export const featureFlags: Record<string, FeatureFlag> = {
   'ai-summaries': { enabled: false },
   notifications: { enabled: false },
   search: { enabled: false },
-  'google-auth': { enabled: false },
+  'google-auth': { enabled: true },
   explore: { enabled: false },
   admin: { enabled: false },
 };

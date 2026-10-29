@@ -69,7 +69,7 @@ export default function Landing() {
                   </PixelButton>
                   {/* Only offered when the google-auth module is on. */}
                   {status === 'ready' && isEnabled('google-auth') && (
-                    <PixelButton href={apiUrl('/auth/google')} external variant="ghost">
+                   <PixelButton href={apiUrl('/google-auth/start')} external variant="ghost">
                       Continue with Google
                     </PixelButton>
                   )}
