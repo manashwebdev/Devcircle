@@ -1,0 +1,79 @@
+/*
+ * ALL COLORS LIVE HERE. Values are "R G B" triplets so Tailwind can add opacity (bg-accent/20).
+ * Dark is the default (matches the reference site: black base, red accent). Light is a variant.
+ * Reference sampled from the video: accent #c13b2d, card border #ce4a3b, dim rule #904a42, card bg #0c0a08.
+ */
+:root,
+[data-theme='dark'] {
+  --bg: 0 0 0;
+  --surface: 12 10 8;
+  --surface-2: 30 24 22;
+  --ink: 245 240 235;
+  --muted: 163 152 146;
+  --line: 144 74 66;
+  --accent: 193 59 45;
+  --accent-strong: 206 74 59;
+  --on-accent: 255 255 255;
+  --shadow: 96 28 20;
+  --sprite-outline: 245 240 235;
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  /* Cool paper white, near-black ink, deeper red accent (6:1 contrast on white). Shadows are a pale red, not black, so cards feel light. */
+  --bg: 244 244 246;
+  --surface: 255 255 255;
+  --surface-2: 232 232 238;
+  --ink: 18 14 14;
+  --muted: 86 80 84;
+  --line: 176 112 106;
+  --accent: 176 44 32;
+  --accent-strong: 150 36 26;
+  --on-accent: 255 255 255;
+  --shadow: 200 128 120;
+  --sprite-outline: 58 26 22; /* softer than pure black so the mascot is not heavy on a light page */
+  color-scheme: light;
+}
+
+/* Mascot parts (same in both themes; outlines use --ink so they flip with the theme). */
+:root {
+  --sprite-skin: 240 200 160;
+  --sprite-eye: 12 10 8;
+  --sprite-mouth: 122 42 34;
+  --sprite-white: 255 255 255;
+
+  /* Per pixel character: hair, shirt and skin. Add a line trio here + an entry in sprites.ts to add a character. */
+  --ch-ember-hair: 193 59 45;
+  --ch-ember-shirt: 60 60 66;
+  --ch-ember-skin: 240 200 160;
+  --ch-moss-hair: 70 150 90;
+  --ch-moss-shirt: 52 62 54;
+  --ch-moss-skin: 240 200 160;
+  --ch-azure-hair: 70 120 200;
+  --ch-azure-shirt: 50 56 72;
+  --ch-azure-skin: 240 200 160;
+  --ch-plum-hair: 150 80 180;
+  --ch-plum-shirt: 64 52 70;
+  --ch-plum-skin: 240 200 160;
+  --ch-blaze-hair: 232 124 40;
+  --ch-blaze-shirt: 40 50 72;
+  --ch-blaze-skin: 240 200 160;
+  --ch-frost-hair: 120 210 230;
+  --ch-frost-shirt: 60 70 90;
+  --ch-frost-skin: 250 222 204;
+  --ch-rose-hair: 225 110 150;
+  --ch-rose-shirt: 70 50 62;
+  --ch-rose-skin: 232 184 150;
+  --ch-bruno-hair: 66 42 30;
+  --ch-bruno-shirt: 140 40 32;
+  --ch-bruno-skin: 196 138 98;
+  --ch-coco-hair: 38 30 28;
+  --ch-coco-shirt: 46 90 110;
+  --ch-coco-skin: 140 92 62;
+  --ch-jax-hair: 40 170 160;
+  --ch-jax-shirt: 44 44 52;
+  --ch-jax-skin: 222 170 128;
+  --ch-luna-hair: 200 190 235;
+  --ch-luna-shirt: 70 60 100;
+  --ch-luna-skin: 246 214 188;
+}

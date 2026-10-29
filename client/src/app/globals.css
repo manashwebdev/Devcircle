@@ -1,0 +1,70 @@
+@import '../core/theme/tokens.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background: rgb(var(--bg));
+  }
+  body {
+    @apply bg-bg font-body text-ink antialiased;
+    font-weight: 700; /* the reference site sets body copy in bold monospace */
+  }
+  /* Visible keyboard focus everywhere: a dashed accent box, matching the dashed UI chrome. */
+  :focus-visible {
+    outline: 2px dashed rgb(var(--accent-strong));
+    outline-offset: 3px;
+  }
+  svg,
+  img {
+    image-rendering: pixelated;
+  }
+  ::selection {
+    background: rgb(var(--accent));
+    color: rgb(var(--on-accent));
+  }
+}
+
+@layer components {
+  /* Dashed rule used under headers and between sections (the red dotted line in the reference). */
+  .px-rule {
+    border-top: 2px dashed rgb(var(--line));
+  }
+}
+
+/* Tiny, stepped (not smooth) animations: they feel like sprite frames. */
+@keyframes px-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+@keyframes px-type {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(2px, 2px); }
+}
+@keyframes px-hop {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes px-sleep {
+  0%, 100% { transform: translateY(2px); }
+  50% { transform: translateY(4px); }
+}
+@keyframes px-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.mascot-idle { animation: px-bob 1.2s steps(2, end) infinite; }
+.mascot-typing { animation: px-type 0.45s steps(2, end) infinite; }
+.mascot-celebrating { animation: px-hop 0.7s steps(4, end) infinite; }
+.mascot-sleeping { animation: px-sleep 2.4s steps(2, end) infinite; }
+.px-blink { animation: px-blink 1s steps(2, end) infinite; }
+
+/* Respect "reduce motion": no animation, no transitions. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
