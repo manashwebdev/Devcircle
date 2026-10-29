@@ -13,7 +13,7 @@ export function slugifyUsername(raw: string): string {
 }
 
 /** Usernames are unique. If "sam" is taken we try sam-2, sam-3, ... */
-async function uniqueUsername(base: string): Promise<string> {
+export async function uniqueUsername(base: string): Promise<string> {
   let candidate = base;
   for (let i = 2; await User.exists({ username: candidate }); i++) {
     const suffix = `-${i}`;
