@@ -47,5 +47,15 @@ export interface FeatureManifest {
   name: string;
   /** One entry, or several (e.g. Feed + Compose). */
   nav?: NavEntry | NavEntry[];
-  routes: FeatureRoute[];
+    routes: FeatureRoute[];
+  /** Small widgets this feature adds to pages that belong to other features (see core/features/Slot.tsx). */
+  slots?: { [K in SlotName]?: SlotComponent<SlotProps[K]> };
+  
 }
+/** The named places other features can plug widgets into, and what each place hands the widget. */
+export interface SlotProps {
+  profile: { username: string; isMe: boolean };
+  circle: { circleId: string; isMember: boolean };
+}
+export type SlotName = keyof SlotProps;
+export type SlotComponent<P> = ComponentType<P> | LazyExoticComponent<ComponentType<P>>;

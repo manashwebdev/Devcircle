@@ -1,4 +1,6 @@
+import { registerCircleAccess } from '../../core/access';
 import type { FeatureModule } from '../../core/types';
+import { Circle } from './model';
 import { router } from './routes';
 import { seedCircles } from './seed';
 
@@ -11,6 +13,12 @@ const circles: FeatureModule = {
   },
   router,
   seed: seedCircles,
+  // Runs once at startup: tell other features how to check circle access (members, or anyone if public).
+  init: () =>
+    registerCircleAccess(async (userId, circleId) => {
+      const c = await Circle.findById(circleId).select('visibility members.userId').lean();
+      return !!c && (c.visibility === 'public' || c.members.some((m) => String(m.userId) === userId));
+    }),
 };
 
 export default circles;

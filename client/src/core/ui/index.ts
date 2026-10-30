@@ -12,5 +12,6 @@ export { Tabs, type TabItem } from './Tabs';
 export { ToastProvider, useToast } from './Toast';
 export { Field, PixelInput, PixelTextarea } from './Field';
 export { Markdown } from './Markdown';
+export { Heatmap } from './Heatmap';
 export { Skyline } from './Skyline';
 export { MOODS, CHARACTERS, type Mood } from './sprites';

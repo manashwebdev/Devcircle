@@ -1,6 +1,6 @@
 import { Schema, model, type HydratedDocument, type InferSchemaType } from 'mongoose';
 import { CHARACTER_IDS } from '../constants';
-
+import { liveStreak } from '../day';
 /**
  * User = account + public profile fields.
  * Core owns it (together with Session). Feature modules never define their own user model;
@@ -52,7 +52,7 @@ export function toPublicUser(u: UserDoc) {
     bio: u.bio,
     links: u.links.map((l) => ({ label: l.label ?? '', url: l.url ?? '' })),
     techStack: u.techStack,
-    streak: { current: u.streak?.current ?? 0, longest: u.streak?.longest ?? 0 },
+       streak: { current: liveStreak(u.streak?.current ?? 0, u.streak?.lastDay ?? '').current, longest: u.streak?.longest ?? 0 },
     joinedAt: (u as unknown as { createdAt: Date }).createdAt,
   };
 }

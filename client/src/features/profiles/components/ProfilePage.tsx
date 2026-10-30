@@ -3,6 +3,7 @@
 import { useApp } from '@/core/auth/AppContext';
 import type { RouteProps } from '@/core/types';
 import { EmptyState, Mascot, PixelAvatar, PixelButton, PixelCard, PixelIcon } from '@/core/ui';
+import { Slot } from '@/core/features/Slot';
 import { useProfile } from '../hooks/useProfile';
 
 /** /u/:username. "me" is an alias for the signed-in user. */
@@ -68,7 +69,7 @@ export default function ProfilePage({ params }: RouteProps) {
           )}
         </PixelCard>
       </div>
-
+      <Slot name="profile" username={profile.username} isMe={isMe} />
       {!isEnabled('posts') && (
         <EmptyState title="No posts yet" description="Built, Broke and Learned posts will show up here once the posts module is switched on." mood="idle" />
       )}

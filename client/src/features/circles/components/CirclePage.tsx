@@ -9,6 +9,7 @@ import { EmptyState, Mascot, Modal, PixelAvatar, PixelButton, PixelCard, useToas
 import { getCircle, kickMember, leaveCircle, setVisibility } from '../api';
 import type { CircleDetail, CircleMember } from '../types';
 import { CheckinPanel } from './CheckinPanel';
+import { Slot } from '@/core/features/Slot';
 
 /** /circles/:id */
 export default function CirclePage({ params }: RouteProps) {
@@ -103,6 +104,7 @@ export default function CirclePage({ params }: RouteProps) {
           <span className="border-2 border-dashed border-line px-2 py-0.5 text-muted">{circle.members.length} / {circle.maxMembers} seats</span>
         </div>
       </header>
+            <Slot name="circle" circleId={circle.id} isMember={circle.isMember} />
       <CheckinPanel circleId={circle.id} />
       <PixelCard title="Members">
         <ul className="grid gap-3 sm:grid-cols-2">
