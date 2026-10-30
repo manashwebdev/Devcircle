@@ -13,7 +13,7 @@ export const coreFeatures = ['profiles'] as const;
 
 export const featureFlags: Record<string, FeatureFlag> = {
   posts: { enabled: true },
-  circles: { enabled: false },
+  circles: { enabled: true },
   streaks: { enabled: false },
   reactions: { enabled: false },
   reviews: { enabled: false },
