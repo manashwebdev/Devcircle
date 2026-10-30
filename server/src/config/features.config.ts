@@ -17,7 +17,7 @@ export const coreFeatures = ['profiles'] as const;
 /** Optional modules. Flip `enabled`; a module that is not built yet must stay false. */
 export const features: Record<string, FeatureFlag> = {
   posts: { enabled: true },
-  circles: { enabled: false },
+  circles: { enabled: true },
   streaks: { enabled: false },
   reactions: { enabled: false },
   reviews: { enabled: false },
