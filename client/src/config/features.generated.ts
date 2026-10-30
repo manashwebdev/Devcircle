@@ -4,5 +4,6 @@ import circles from '@/features/circles';
 import googleAuth from '@/features/google-auth';
 import posts from '@/features/posts';
 import profiles from '@/features/profiles';
+import streaks from '@/features/streaks';
 
-export const manifests: FeatureManifest[] = [circles, googleAuth, posts, profiles];
+export const manifests: FeatureManifest[] = [circles, googleAuth, posts, profiles, streaks];
