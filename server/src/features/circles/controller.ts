@@ -11,7 +11,8 @@ import {
   previewInvite,
   setVisibility,
 } from './service';
-import type { CreateCircleInput } from './schema';
+import { listCheckins, postCheckin } from './checkinService';
+import type { CreateCheckinInput, CreateCircleInput } from './schema';
 
 export const mine = asyncHandler(async (req, res) => {
   ok(res, await listMyCircles(req.auth!.user));
@@ -40,4 +41,10 @@ export const leave = asyncHandler(async (req, res) => {
 });
 export const kick = asyncHandler(async (req, res) => {
   ok(res, await kickMember(req.auth!.user, req.params.id as string, req.params.userId as string));
+});
+export const checkinsList = asyncHandler(async (req, res) => {
+  ok(res, await listCheckins(req.auth!.user, req.params.id as string, (req.query as { day?: string }).day));
+});
+export const checkinCreate = asyncHandler(async (req, res) => {
+  ok(res, await postCheckin(req.auth!.user, req.params.id as string, req.body as CreateCheckinInput), 201);
 });

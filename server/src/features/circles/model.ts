@@ -40,3 +40,24 @@ circleSchema.index({ 'members.userId': 1, createdAt: -1 });
 circleSchema.index({ visibility: 1, createdAt: -1 });
 
 export const Circle = model('Circle', circleSchema);
+
+// ---------------------------------------------------------------------------
+// Check-ins: one short "proof of work" note per person, per circle, per day.
+// ---------------------------------------------------------------------------
+const checkinSchema = new Schema(
+  {
+    circleId: { type: Schema.Types.ObjectId, ref: 'Circle', required: true },
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    day: { type: String, required: true, match: /^\d{4}-\d{2}-\d{2}$/ }, // "2026-10-30"
+    text: { type: String, required: true, trim: true, maxlength: 280 },
+    link: { type: String, maxlength: 300 },
+  },
+  { timestamps: true },
+);
+
+// The database itself refuses a second check-in for the same person/circle/day.
+checkinSchema.index({ circleId: 1, userId: 1, day: 1 }, { unique: true });
+// "Show me everyone's check-ins for this circle today."
+checkinSchema.index({ circleId: 1, day: 1, createdAt: 1 });
+
+export const Checkin = model('Checkin', checkinSchema);

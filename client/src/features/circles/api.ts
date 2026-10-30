@@ -1,5 +1,5 @@
 import { api } from '@/core/api';
-import type { CircleDetail, CircleSummary, CreateCircleInput, InvitePreview, Visibility } from './types';
+import type { CheckinList, CircleDetail, CircleSummary, CreateCircleInput, InvitePreview, Visibility } from './types';
 
 export const listMyCircles = (signal?: AbortSignal) => api<CircleSummary[]>('/circles', { signal });
 export const listPublicCircles = (signal?: AbortSignal) => api<CircleSummary[]>('/circles/public', { signal });
@@ -14,3 +14,6 @@ export const joinCircle = (code: string) => api<CircleDetail>(`/circles/join/${c
 export const leaveCircle = (id: string) => api<{ left: boolean }>(`/circles/${id}/leave`, { method: 'POST' });
 export const kickMember = (id: string, userId: string) =>
   api<{ removed: boolean }>(`/circles/${id}/members/${userId}`, { method: 'DELETE' });
+export const listCheckins = (circleId: string, signal?: AbortSignal) => api<CheckinList>(`/circles/${circleId}/checkins`, { signal });
+export const postCheckin = (circleId: string, input: { text: string; link?: string }) =>
+  api<CheckinList>(`/circles/${circleId}/checkins`, { method: 'POST', body: input });

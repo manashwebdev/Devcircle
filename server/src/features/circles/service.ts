@@ -3,7 +3,7 @@ import { Types } from 'mongoose';
 import type { CharacterId } from '../../core/constants';
 import { AppError } from '../../core/errors';
 import type { UserDoc } from '../../core/models/User';
-import { Circle, MAX_MEMBERS, MIN_MEMBERS } from './model';
+import { Checkin, Circle, MAX_MEMBERS, MIN_MEMBERS } from './model';
 import type { CreateCircleInput } from './schema';
 
 type Visibility = 'private' | 'public';
@@ -144,6 +144,7 @@ export async function leaveCircle(user: UserDoc, id: string) {
 
   // Last person out: delete the circle.
   if (circle.members.length === 0) {
+    await Checkin.deleteMany({ circleId: circle._id }); // don't leave orphaned check-ins behind
     await circle.deleteOne();
     return { left: true };
   }

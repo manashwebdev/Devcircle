@@ -13,6 +13,7 @@ export interface CoreEvents {
   'profile.updated': { userId: string };
   'post.created': { postId: string; authorId: string };
   'checkin.completed': { userId: string; circleId: string; day: string };
+  'circle.day.completed': { circleId: string; day: string };
   'review.created': { reviewId: string; postId: string; authorId: string; reviewerId: string };
 }
 

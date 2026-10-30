@@ -44,3 +44,21 @@ export interface CreateCircleInput {
   description: string;
   visibility: Visibility;
 }
+export interface Checkin {
+  id: string;
+  text: string;
+  link?: string;
+  createdAt: string;
+  author: { id: string; username: string; displayName: string; character: CharacterId };
+}
+
+/** What GET /api/circles/:id/checkins returns. */
+export interface CheckinList {
+  day: string;
+  isToday: boolean;
+  isMember: boolean;
+  checkedIn: boolean;
+  items: Checkin[];
+  /** Members who have not checked in yet (empty for non-members). */
+  pending: { id: string; username: string; displayName: string; character: CharacterId }[];
+}

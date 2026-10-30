@@ -19,6 +19,20 @@ const schema = z.object({
   MONGODB_URI: z.string().min(1, 'MONGODB_URI is required'),
   JWT_SECRET: z.string().min(32, 'JWT_SECRET must be at least 32 characters'),
   JWT_EXPIRES_DAYS: z.coerce.number().int().positive().default(14),
+
+    // Which timezone decides when a "day" starts, e.g. UTC, Asia/Kolkata, America/New_York.
+  CHECKIN_TIMEZONE: z
+    .string()
+    .refine((tz) => {
+      try {
+        new Intl.DateTimeFormat('en', { timeZone: tz });
+        return true;
+      } catch {
+        return false;
+      }
+    }, 'CHECKIN_TIMEZONE must be a valid timezone name')
+    .default('UTC'),
+    
   CROSS_SITE_COOKIES: bool,
   COOKIE_DOMAIN: z.string().optional().transform((v) => v || undefined),
   GITHUB_CLIENT_ID: z.string().default(''),
