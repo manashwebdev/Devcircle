@@ -19,7 +19,9 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [moreOpen, setMoreOpen] = useState(false);
 
   // The profile entry points at /u/me; make it light up on your own profile page too.
-  const items = navItems(features).map((n) => (n.href === '/u/me' && user ? { ...n, href: `/u/${user.username}` } : n));
+  const items = navItems(features)
+    .filter((n) => !n.adminOnly || user?.role === 'admin')
+    .map((n) => (n.href === '/u/me' && user ? { ...n, href: `/u/${user.username}` } : n));
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   const signOut = async () => {
@@ -48,6 +50,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             >
               <PixelIcon name={n.icon} />
               {n.label}
+              {n.badge ? <n.badge /> : null}
             </Link>
           ))}
         </nav>
@@ -81,6 +84,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <Link key={n.href} href={n.href} aria-current={isActive(n.href) ? 'page' : undefined} className={cn('flex flex-1 flex-col items-center gap-1 py-2 text-[10px] uppercase', isActive(n.href) ? 'text-accent-strong' : 'text-muted')}>
             <PixelIcon name={n.icon} />
             {n.label}
+            {n.badge ? <n.badge /> : null}
           </Link>
         ))}
         {overflow.length > 0 && (
@@ -97,6 +101,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <Link key={n.href} href={n.href} onClick={() => setMoreOpen(false)} className="flex items-center gap-3 border-2 border-dashed border-line px-3 py-2 text-sm uppercase">
               <PixelIcon name={n.icon} />
               {n.label}
+              {n.badge ? <n.badge /> : null}
             </Link>
           ))}
           <div className="mt-2 flex gap-2">

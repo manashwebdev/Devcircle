@@ -15,6 +15,19 @@ export interface CoreEvents {
   'checkin.completed': { userId: string; circleId: string; day: string };
   'circle.day.completed': { circleId: string; day: string };
   'review.created': { reviewId: string; postId: string; authorId: string; reviewerId: string };
+  /** `parentAuthorId` is set for replies. `mentionedIds` are users @mentioned in the comment. */
+  'comment.created': {
+    commentId: string;
+    postId: string;
+    postTitle: string;
+    postAuthorId: string;
+    authorId: string;
+    parentAuthorId: string | null;
+    mentionedIds: string[];
+    snippet: string;
+  };
+  'user.followed': { followerId: string; followeeId: string };
+  'reaction.created': { postId: string; postTitle: string; postAuthorId: string; userId: string; kind: string };
 }
 
 class TypedBus {

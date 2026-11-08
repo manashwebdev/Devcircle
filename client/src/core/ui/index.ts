@@ -15,3 +15,5 @@ export { Markdown } from './Markdown';
 export { Heatmap } from './Heatmap';
 export { Skyline } from './Skyline';
 export { MOODS, CHARACTERS, type Mood } from './sprites';
+export { PostRow } from './PostRow';
+export { PersonRow } from './PersonRow';

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ApiError } from '@/core/api';
+import { Slot } from '@/core/features/Slot';
 import type { RouteProps } from '@/core/types';
 import { EmptyState, Markdown, Mascot, Modal, PixelAvatar, PixelButton, PixelCard, useToast } from '@/core/ui';
 import { deletePost, getPost } from '../api';
@@ -45,6 +46,8 @@ export default function PostPage({ params }: RouteProps) {
     }
   };
 
+  const slotProps = { postId: post.id, title: post.title, authorUsername: post.author?.username ?? '', isMine: post.mine };
+
   return (
     <article>
       <Link href="/feed" className="mb-4 inline-block text-sm text-muted hover:text-ink">← Feed</Link>
@@ -60,6 +63,8 @@ export default function PostPage({ params }: RouteProps) {
           {post.request !== 'none' && <span className="border-2 border-dashed border-accent-strong px-2 py-0.5 uppercase text-accent-strong">{post.request === 'try' ? 'Try it' : 'Review it'}</span>}
         </div>
 
+        {/* Other features plug in here (AI summary, reactions, save, comments) without posts importing them. */}
+        <Slot name="postTop" {...slotProps} />
         <Markdown source={post.body} />
 
         <div className="mt-4 flex flex-wrap items-center gap-2 border-t-2 border-dashed border-line pt-4">
@@ -67,7 +72,14 @@ export default function PostPage({ params }: RouteProps) {
           {post.link && <PixelButton href={post.link} external variant="outline" className="ml-auto">Open repo / demo</PixelButton>}
           {post.mine && <PixelButton variant="ghost" onClick={() => setConfirm(true)}>Delete</PixelButton>}
         </div>
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <Slot name="postActions" {...slotProps} />
+        </div>
       </PixelCard>
+
+      <div className="mt-6">
+        <Slot name="postFooter" {...slotProps} />
+      </div>
 
       <Modal open={confirm} onClose={() => setConfirm(false)} title="Delete this post?">
         <p className="mb-4 text-sm text-muted">This cannot be undone.</p>

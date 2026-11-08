@@ -1,4 +1,4 @@
-import type { InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from 'react';
+import { forwardRef, type InputHTMLAttributes, type ReactNode, type TextareaHTMLAttributes } from 'react';
 import { cn } from './cn';
 
 const control =
@@ -17,9 +17,9 @@ export function Field({ label, hint, error, htmlFor, children }: { label: string
   );
 }
 
-export function PixelInput({ className, ...rest }: InputHTMLAttributes<HTMLInputElement>) {
-  return <input className={cn(control, className)} {...rest} />;
-}
+export const PixelInput = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(function PixelInput({ className, ...rest }, ref) {
+  return <input ref={ref} className={cn(control, className)} {...rest} />;
+});
 
 export function PixelTextarea({ className, ...rest }: TextareaHTMLAttributes<HTMLTextAreaElement>) {
   return <textarea className={cn(control, 'min-h-24', className)} {...rest} />;
