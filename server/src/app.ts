@@ -19,7 +19,8 @@ export async function createApp() {
   const app = express();
 
   // Render / Vercel put a proxy in front of us: needed for correct client IPs (rate limits) and secure cookies.
-  app.set('trust proxy', 1);
+
+  app.set("trust proxy", 1);
 
   app.use(helmet());
   // CORS is locked to ONE origin: the client. credentials:true lets the browser send the session cookie.
@@ -51,3 +52,4 @@ export async function createApp() {
   app.use(errorHandler);
   return { app, modules };
 }
+
